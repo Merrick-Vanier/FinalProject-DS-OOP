@@ -26,7 +26,7 @@ public class Employee extends User{
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "org.example.Employee{" +
                 "phoneNumber=" + phoneNumber +
                 ", password='" + password + '\'' + super.toString() +
                 '}';
