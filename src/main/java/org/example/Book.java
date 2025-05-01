@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Book extends Media {
@@ -74,5 +75,31 @@ public class Book extends Media {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public static class BookComparator implements Comparator<Media> {
+        private final String sorting;
+
+        public BookComparator(String sorting) {
+            this.sorting = sorting;
+        }
+
+        @Override
+        public int compare(Media o1, Media o2) {
+            if (o1 instanceof Book && o2 instanceof Book) {
+                switch (sorting) {
+                    case ("title") -> {
+                        return (((Book) o1).title.compareTo(((Book) o2).title));
+                    }
+                    case ("pages") -> {
+                        return (((Book) o1).pages - ((Book) o2).pages);
+                    }
+                    default -> {
+                        return (((Book) o1).published - ((Book) o2).published);
+                    }
+                }
+            }
+            return (o1.getCallNumber() - o2.getCallNumber());
+        }
     }
 }

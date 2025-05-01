@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class DVD extends Media {
@@ -63,5 +64,28 @@ public class DVD extends Media {
 
     public void setReleased(int released) {
         this.released = released;
+    }
+
+    public class DVDComparator implements Comparator<Media> {
+        public String sorting;
+
+        public DVDComparator(String sorting) {
+            this.sorting = sorting;
+        }
+
+        @Override
+        public int compare(Media o1, Media o2) {
+            if (o1 instanceof DVD && o2 instanceof DVD) {
+                switch (sorting) {
+                    case("title") -> {
+                        return (((DVD) o1).title.compareTo(((DVD) o2).title));
+                    }
+                    default -> {
+                        return (((DVD) o1).released - ((DVD) o2).released);
+                    }
+                }
+            }
+            return (o1.getCallNumber() - o2.getCallNumber());
+        }
     }
 }

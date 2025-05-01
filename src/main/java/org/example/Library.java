@@ -10,5 +10,23 @@ public class Library {
     public List<Media> media = new LinkedList<>();
     public Map<User, List<Media>> loans = new HashMap<>();
 
-    
+    public void search(List<Media> curMedia, String searchBy) {
+        //TODO
+    }
+
+    public User signUp(String email) {
+        //TODO
+    }
+
+    public void checkOut(String password) {
+        //TODO
+    }
+
+    public void exportLibrary(String path, List<Media> curMedia) {
+        //TODO
+    }
+
+    public List<Media> importLibrary (String path) {
+        //TODO
+    }
 }
