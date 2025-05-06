@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.*;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
 public class Library {
     public List<User> users = new LinkedList<>();
     public List<Media> media = new LinkedList<>();
@@ -79,7 +82,15 @@ public class Library {
         File file = new File(path);
 
         try (Scanner scanner = new Scanner(file)) {
-
+            while (scanner.hasNext()) {
+                String[] split = scanner.nextLine().split(",");
+                if (split[split.length - 1].equals("Book")) {
+                    media.add(new Book(parseInt(split[0]), parseDouble(split[1]), split[2], split[3], split[4], parseInt(split[5]), parseInt(split[6])));
+                }
+                else {
+                    media.add(new DVD(parseInt(split[0]), parseDouble(split[1]), split[2], split[3], split[4], parseInt(split[5])));
+                }
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
