@@ -5,7 +5,7 @@ import java.util.Objects;
 public abstract class User {
     private String name;
     private int id;
-    public static int idCount = 0;
+    public static int idCount = 1;
 
     public User(String name) {
         this.name = name;

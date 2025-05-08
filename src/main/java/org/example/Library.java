@@ -24,22 +24,64 @@ public class Library {
 
     /**
      * Allows the user to sign up as a patron of the library provided they use a valid email that has not
-     * been used previously by another patron.
+     * been used previously by another patron, adding their information to the users list.
      * @param email the email the patron is trying to sign up with
-     * @return The patron's information as a User object
      */
-    public User signUp(String email) {
-        //TODO
+    public void signUp(String email, String name) {
+        if (email == null || !email.contains("@")) {
+            System.out.println("Invalid email");
+            return;
+        }
+        for (User patron : users) {
+            if (patron instanceof Patron && ((Patron) patron).getEmail().equals(email)) {
+                System.out.println("Email already used by another patron");
+                return;
+            }
+        }
+        users.add(new Patron(name, 0, email));
     }
 
     /**
      * Allows an employee to check out a book to a user provided the employee enters their password correctly
      * @param password the password provided by the employee
      * @param patron the person the media is being checked out to
-     * @param checkedout the piece of media being checked out
+     * @param checkedOut the piece of media being checked out
      */
-    public void checkOut(String password, User patron, Media checkedout) {
-        //TODO
+    public void checkOut(String password, User patron, Media checkedOut) {
+        boolean pasExists = false;
+        for (User user : users) {
+            if (user instanceof Employee && ((Employee) user).getPassword().equals(password)) {
+                pasExists = true;
+                break;
+            }
+        }
+
+        if (!pasExists) {
+            System.out.println("Incorrect password");
+            return;
+        }
+        if (patron instanceof Patron) {
+            if (((Patron) patron).getBorrowed() >= 5) {
+                System.out.println("Patron has borrowed the max amount of things allowed");
+                return;
+            }
+            else {
+                ((Patron) patron).setBorrowed(((Patron) patron).getBorrowed() + 1);
+            }
+        }
+
+
+        List<Media> checkOuts = new LinkedList<>();
+        if (loans.containsKey(patron)) {
+            checkOuts = loans.get(patron);
+        }
+        checkOuts.add(checkedOut);
+
+        loans.putIfAbsent(patron, checkOuts);
+
+        checkedOut.setIsBorrowed(true);
+        checkedOut.setBorrower(patron.getId());
+
     }
 
     /**

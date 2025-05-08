@@ -9,7 +9,7 @@ public abstract class Media implements MediaInfo {
     private long borrower;
     private String topic;
     private int callNumber;
-    public static int callCount;
+    public static int callCount = 1;
 
     public Media(int borrowTime, double feeCharge, String topic) {
         this.borrowTime = borrowTime;
@@ -74,11 +74,11 @@ public abstract class Media implements MediaInfo {
         this.borrower = borrower;
     }
 
-    public boolean isBorrowed() {
+    public boolean getIsBorrowed() {
         return isBorrowed;
     }
 
-    public void setBorrowed(boolean borrowed) {
+    public void setIsBorrowed(boolean borrowed) {
         isBorrowed = borrowed;
     }
 
