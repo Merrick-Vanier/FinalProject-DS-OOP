@@ -120,4 +120,133 @@ public class LibraryTest {
 
         Assertions.assertEquals(u, l1.users);
     }
+
+    //search tests
+
+    @Test
+    public void search_Test1() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("Topic", "Math");
+        expected.add(m1);
+        expected.add(m2);
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test2() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("AuthOr", "Jimbo");
+        expected.add(m4);
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test3() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("date", "1990");
+        expected.add(m1);
+        expected.add(m3);
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test4() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("date", "1800");
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test5() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("titlE", "French");
+        expected.add(m3);
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test6() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("callnumber", "3");
+        expected.add(m3);
+
+        Assertions.assertEquals(expected, result);
+    }
+    @Test
+    public void search_Test7() {
+        List<Media> expected = new LinkedList<>();
+        Media m1 = new Book(0,0,"Math","Math101","Mathguy",1990,0);
+        Media m2 = new Book(0,0,"Math","Math201","Mathguy",1991,0);
+        Media m3 = new DVD(0,0,"French","French","Bob",1990);
+        Media m4 = new DVD(0,0,"English","Shakespeare","Jimbo",2002);
+
+        Library l1 = new Library();
+        l1.media.add(m1);
+        l1.media.add(m2);
+        l1.media.add(m3);
+        l1.media.add(m4);
+        List<Media> result = l1.search("wads", "1990");
+
+        Assertions.assertEquals(expected, result);
+    }
 }

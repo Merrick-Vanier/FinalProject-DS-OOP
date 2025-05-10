@@ -14,12 +14,80 @@ public class Library {
     public Map<User, List<Media>> loans = new HashMap<>();
 
     /**
-     * Allows
-     * @param curMedia The media currently in the library
+     * Allows users to search up books based on a topic, the publication date, call number, title or author;
+     * returning the media with the searched properties and nothing if no media falls under the search.
      * @param searchBy The property that the media is being searched by
+     * @return List of media that falls under the searched property
      */
-    public void search(List<Media> curMedia, String searchBy) {
-        //TODO
+    public List<Media> search(String searchBy, String property) {
+        List<Media> searched = new LinkedList<>();
+        switch (searchBy.toLowerCase()) {
+            case "topic" -> {
+                for (Media media1 : media) {
+                    if (media1.getTopic().toLowerCase().contains(property.toLowerCase())) {
+                        searched.add(media1);
+                    }
+                }
+            }
+            case "date" -> {
+                for (Media media1 : media) {
+                    if(media1 instanceof Book) {
+                        if (((Book) media1).getPublished() == parseInt(property)) {
+                            searched.add(media1);
+                        }
+                    }
+                    if(media1 instanceof DVD) {
+                        if (((DVD) media1).getReleased() == parseInt(property)) {
+                            searched.add(media1);
+                        }
+                    }
+                }
+            }
+            case "callnumber" -> {
+                for (Media media1 : media) {
+                    if (media1.getCallNumber() == parseInt(property)) {
+                        searched.add(media1);
+                    }
+                }
+            }
+            case "title" -> {
+                for (Media media1 : media) {
+                    if(media1 instanceof Book) {
+                        if (((Book) media1).getTitle().toLowerCase().contains(property.toLowerCase())) {
+                            searched.add(media1);
+                        }
+                    }
+                    if(media1 instanceof DVD) {
+                        if (((DVD) media1).getTitle().toLowerCase().contains(property.toLowerCase())) {
+                            searched.add(media1);
+                        }
+                    }
+                }
+            }
+            case "author" -> {
+                for (Media media1 : media) {
+                    if(media1 instanceof Book) {
+                        if (((Book) media1).getAuthors().toLowerCase().contains(property.toLowerCase())) {
+                            searched.add(media1);
+                        }
+                    }
+                    if(media1 instanceof DVD) {
+                        if (((DVD) media1).getDirector().toLowerCase().contains(property.toLowerCase())) {
+                            searched.add(media1);
+                        }
+                    }
+                }
+            }
+            default -> {
+                System.out.println("Invalid sorting term");
+                return searched;
+            }
+        }
+
+        if (searched.isEmpty()) {
+            System.out.println("No items matched the searched for term");
+        }
+        return searched;
     }
 
     /**
